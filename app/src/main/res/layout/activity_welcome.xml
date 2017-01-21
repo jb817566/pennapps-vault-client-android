@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
+    android:background="#82d7f1"
     tools:context="layout.welcome.Welcome">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
@@ -14,8 +14,8 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:keepScreenOn="true"
-        android:text="@string/dummy_content"
-        android:textColor="#33b5e5"
+        android:text="Vaultapp"
+        android:textColor="#ECFBFF"
         android:textSize="50sp"
         android:textStyle="bold" />
 
@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
-            android:background="@color/black_overlay"
+            android:background="#B1EAFA"
             android:orientation="horizontal"
             tools:ignore="UselessParent">
 
@@ -42,7 +42,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/dummy_button" />
+                android:background="#37ADCE"
+                android:textColor="#ECFBFF"
+                android:text="Get started!"
+                android:onClick=""/>
 
         </LinearLayout>
     </FrameLayout>
