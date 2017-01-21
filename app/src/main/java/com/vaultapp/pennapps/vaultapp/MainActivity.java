@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 //                        .build()).
 //                        build();
 //        Communications.createNessieCustomer(customer);
-        String d = SecurityStoreSingleton.getInstance().Retreive("");
+        String d = SecurityStoreSingleton.getInstance().Retreive();
         //Communications.getAllAccountsForCustomer(d);
         String acctNum = (System.currentTimeMillis() + "").substring(0, 13) + RandomString(3);
         Communications.createNessieAccountForCustomer(d,
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < n; i++) {
             builder.append(rand.nextInt() % 9);
         }
-        return  builder.toString();
+        return builder.toString();
     }
 
     protected void Login(View v) {

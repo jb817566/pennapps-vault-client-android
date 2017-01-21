@@ -86,7 +86,6 @@ public class SecurityStoreSingleton {
             }
             int nAfter = keyStore.size();
 
-            // Retrieve the keys
             KeyStore.PrivateKeyEntry privateKeyEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(alias, null);
             RSAPrivateKey privateKey = (RSAPrivateKey) privateKeyEntry.getPrivateKey();
             PubKey = (RSAPublicKey) privateKeyEntry.getCertificate().getPublicKey();
@@ -132,7 +131,7 @@ public class SecurityStoreSingleton {
         return true;
     }
 
-    public String Retreive(String dataKey) {
+    public String Retreive() {
 
         Cipher outCipher = null;
         try {
