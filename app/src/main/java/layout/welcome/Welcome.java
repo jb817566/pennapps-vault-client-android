@@ -1,6 +1,7 @@
 package layout.welcome;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
@@ -8,9 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.reimaginebanking.api.nessieandroidsdk.models.Address;
 import com.reimaginebanking.api.nessieandroidsdk.models.Customer;
 import com.vaultapp.pennapps.vaultapp.Communications;
+import com.vaultapp.pennapps.vaultapp.MainActivity;
 import com.vaultapp.pennapps.vaultapp.R;
+
+import java.util.Random;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -88,17 +93,22 @@ public class Welcome extends AppCompatActivity {
         }
     };
 
+    public void AddCustomerFromForm(View v){
+
+    }
+
     private void createCustomer() {
         //Get Customer form Textview values
-        String firstName = "";
-        String lastName = "";
-
-        Customer customer = new Customer.Builder().firstName(firstName)
-                .lastName(lastName)
-                .build();
+         Customer customer = new Customer.Builder().firstName("Spongebob")
+                .lastName("Squarepants").address(new Address.Builder()
+                        .city("46")
+                        .state("PA")
+                        .zip("11111")
+                        .streetName("4564")
+                        .streetNumber((new Random().nextInt() % 1100) + "")
+                        .build()).
+                        build();
         Communications.createNessieCustomer(customer);
-
-        //field
     }
 
     @Override
@@ -124,6 +134,15 @@ public class Welcome extends AppCompatActivity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+
+        new Handler().postDelayed(new Runnable(){
+            @Override
+            public void run(){
+                Intent homeIntent = new Intent(Welcome.this, MainActivity.class);
+                startActivity(homeIntent);
+                finish();
+            }
+        }, getResources().getInteger(R.integer.SPLASH_TIME_MILLIS));
     }
 
     @Override

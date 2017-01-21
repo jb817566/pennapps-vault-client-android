@@ -8,22 +8,14 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#82d7f1"
     tools:context="com.vaultapp.pennapps.vaultapp.MainActivity">
-
-    <com.usebutton.sdk.ButtonDropin
-        xmlns:button="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_margin="10dp"
-        button:btn_buttonId="btn-5dee7c4a7d704b22"
-        button:btn_textColor="@android:color/white"
-        button:btn_textSize="18dp" />
-
+<!---
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!" />
-
+-->
     <TextView
         android:text="TextView"
         android:layout_width="wrap_content"
@@ -34,12 +26,17 @@
         android:onClick="SendNessus" />
 
     <Button
-        android:text="Button"
+        android:text="Enter Amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="13dp"
         android:id="@+id/button"
-        android:layout_alignBaseline="@+id/textView"
-        android:layout_alignBottom="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:onClick="SendDeposit" />
+        android:gravity="center"
+        android:background="#37ADCE"
+        android:textColor="#ECFBFF"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:onClick="SendDeposit"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

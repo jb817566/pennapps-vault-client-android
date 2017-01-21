@@ -1,13 +1,14 @@
 package com.vaultapp.pennapps.vaultapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.reimaginebanking.api.nessieandroidsdk.constants.AccountType;
 import com.reimaginebanking.api.nessieandroidsdk.models.Account;
-import com.usebutton.sdk.Button;
 import com.vaultapp.pennapps.vaultapp.security.SecurityStoreSingleton;
 
 import java.security.SecureRandom;
@@ -24,11 +25,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         MainActivity.ctx = MainActivity.this;
         appDataDir = MainActivity.ctx.getFilesDir().getAbsolutePath();
-        if (BuildConfig.DEBUG) {
-            Button.getButton(this).enableDebugLogging();
-        }
-        Button.getButton(this).start();
+
     }
+
 
     protected void SendDeposit(View v) {
         EnumAccountType acctType = null;
