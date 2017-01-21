@@ -1,13 +1,15 @@
 package layout.welcome;
 
 import android.annotation.SuppressLint;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.reimaginebanking.api.nessieandroidsdk.models.Customer;
+import com.vaultapp.pennapps.vaultapp.Communications;
 import com.vaultapp.pennapps.vaultapp.R;
 
 /**
@@ -19,6 +21,7 @@ public class Welcome extends AppCompatActivity {
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
      */
+
     private static final boolean AUTO_HIDE = true;
 
     /**
@@ -84,6 +87,19 @@ public class Welcome extends AppCompatActivity {
             return false;
         }
     };
+
+    private void createCustomer() {
+        //Get Customer form Textview values
+        String firstName = "";
+        String lastName = "";
+
+        Customer customer = new Customer.Builder().firstName(firstName)
+                .lastName(lastName)
+                .build();
+        Communications.createNessieCustomer(customer);
+
+        //field
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
