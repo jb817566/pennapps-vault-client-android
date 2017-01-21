@@ -30,7 +30,7 @@ public class Communications {
         return "";
     }
 
-    public static String sendNessieDepositCall(double originalAmt, string account_ID) {
+    public static String sendNessieDepositCall(double originalAmt, String account_ID) {
         String desc = "";
         double depositAmt = Math.ceil(originalAmt) - originalAmt;
         Deposit deposit = new Deposit.Builder()
