@@ -10,6 +10,15 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.vaultapp.pennapps.vaultapp.MainActivity">
 
+    <com.usebutton.sdk.ButtonDropin
+        xmlns:button="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_margin="10dp"
+        button:btn_buttonId="btn-5dee7c4a7d704b22"
+        button:btn_textColor="@android:color/white"
+        button:btn_textSize="18dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

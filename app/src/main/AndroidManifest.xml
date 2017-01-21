@@ -12,7 +12,6 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -22,5 +21,6 @@
             android:label="@string/title_activity_welcome"
             android:theme="@style/FullscreenTheme"></activity>
     </application>
+    <meta-data android:name="com.usebutton.applicationid" android:value="app-10714a00c19ea3f8"/>
 
 </manifest>

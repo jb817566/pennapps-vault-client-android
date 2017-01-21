@@ -4,7 +4,7 @@
     <string name="PKIName">NessieStore</string>
 
     <string name="AccountCreated">Welcome to Vault!</string>
-
+    <string name="ButtonAPPID">app-10714a00c19ea3f8</string>
     <string name="title_activity_welcome">Welcome</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
