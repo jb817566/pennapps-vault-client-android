@@ -27,7 +27,7 @@ public class Communications {
     }
 
     public static String createNessieAccount(Customer account){
-
+        return "";
     }
 
     public static String sendNessieDepositCall(double originalAmt, string account_ID) {
