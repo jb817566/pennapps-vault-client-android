@@ -58,39 +58,62 @@ public class Communications {
     //Customer Operations
 
     //returns dictionary key with alias
-    public static String getAllAccountsForCustomer(String acctID) {
-        String accountHash = null;
-        client.ACCOUNT.getAccount(acctID, new NessieResultsListener() {
+    public static List<String> getAllAccountsForCustomer(String acctID) {
+        final ArrayList<String> accountHashes = new ArrayList<String>();
+        client.ACCOUNT.getCustomerAccounts(acctID, new NessieResultsListener() {
             @Override
             public void onSuccess(Object result) {
                 List<Account> accts = (List<Account>) result;
                 for (Account acct : accts) {
-                    Accounts.addAccount(
-                            Hashing.SHA1(acct.getAccountNumber()),
-                            acct);
+                    String hashed = Hashing.SHA1(acct.getAccountNumber());
+                    if (!Accounts.containsAccount(hashed)) {
+                        Accounts.addAccount(hashed,
+                                acct);
+                    }
+                    accountHashes.add(hashed);
                 }
             }
 
             @Override
             public void onFailure(NessieError error) {
-                Toast.makeText(MainActivity.ctx, error.getMessage(), Toast.LENGTH_SHORT);
+                Toast.makeText(MainActivity.ctx, error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        return accountHashes;
+    }
+
+    public static String createNessieAccountForCustomer(String CustomerID, Account acct) {
+        final String accountHash = null;
+        client.ACCOUNT.createAccount(CustomerID, acct, new NessieResultsListener() {
+            @Override
+            public void onSuccess(Object result) {
+                PostResponse<Account> accts = (PostResponse<Account>) result;
+                Account acct = accts.getObjectCreated();
+                Accounts.addAccount(
+                        Hashing.SHA1(acct.getAccountNumber()),
+                        acct);
+            }
+
+            @Override
+            public void onFailure(NessieError error) {
+
             }
         });
         return accountHash;
     }
 
-    public static String createNessieCustomer(Customer account) {
-        client.CUSTOMER.createCustomer(account, new NessieResultsListener() {
+    public static String createNessieCustomer(Customer customer) {
+        client.CUSTOMER.createCustomer(customer, new NessieResultsListener() {
             @Override
             public void onSuccess(Object result) {
                 PostResponse<Customer> response = (PostResponse<Customer>) result;
                 SecurityStoreSingleton.getInstance().Store(response.getObjectCreated().getId());
-                Toast.makeText(MainActivity.ctx, MainActivity.ctx.getResources().getString(R.string.AccountCreated), Toast.LENGTH_SHORT);
+                Toast.makeText(MainActivity.ctx, MainActivity.ctx.getResources().getString(R.string.AccountCreated), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(NessieError error) {
-                Toast.makeText(MainActivity.ctx, error.getMessage(), Toast.LENGTH_SHORT);
+                Toast.makeText(MainActivity.ctx, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
         return "";

@@ -50,7 +50,7 @@ public class SecurityStoreSingleton {
     }
 
     public static SecurityStoreSingleton getInstance() {
-        if (store != null) {
+        if (store == null) {
             store = new SecurityStoreSingleton();
         }
         return store;
@@ -115,7 +115,7 @@ public class SecurityStoreSingleton {
         // Encrypt the text
         try {
             if (PubKey == null) {
-                throw new Exception("PubKey is null");
+                EnsureStore();
             }
             String encryptedDataFilePath = MainActivity.appDataDir + File.separator + "PKI";
             Cipher inCipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
@@ -163,20 +163,20 @@ public class SecurityStoreSingleton {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        byte[] roundTrippedBytes = new byte[5000];
+        byte[] byteArr = new byte[5000];
 
         int index = 0;
         int nextByte;
         try {
             while ((nextByte = cipherInputStream.read()) != -1) {
-                roundTrippedBytes[index] = (byte) nextByte;
+                byteArr[index] = (byte) nextByte;
                 index++;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
-            return new String(roundTrippedBytes, 0, index, "UTF-8");
+            return new String(byteArr, 0, index, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
