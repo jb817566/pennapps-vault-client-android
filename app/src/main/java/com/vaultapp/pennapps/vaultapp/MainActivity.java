@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < n; i++) {
             builder.append(rand.nextInt() % 9);
         }
+        return  builder.toString();
     }
 
     protected void Login(View v) {
