@@ -65,12 +65,12 @@ public class Communications {
             public void onSuccess(Object result) {
                 List<Account> accts = (List<Account>) result;
                 for (Account acct : accts) {
-                    String hashed = Hashing.SHA1(acct.getAccountNumber());
-                    if (!Accounts.containsAccount(hashed)) {
-                        Accounts.addAccount(hashed,
-                                acct);
+                    String hashedAcctID = Hashing.SHA1(acct.getAccountNumber());
+                    EnumAccountType type = null;
+                    if ((type = Accounts.containsAccount(hashedAcctID)) != EnumAccountType.NONE) {
+                        Accounts.addAccount(hashedAcctID + "_" + type.toString(), acct, type);
+                        accountHashes.add(hashedAcctID);
                     }
-                    accountHashes.add(hashed);
                 }
             }
 
@@ -82,7 +82,7 @@ public class Communications {
         return accountHashes;
     }
 
-    public static String createNessieAccountForCustomer(String CustomerID, Account acct) {
+    public static String createNessieAccountForCustomer(String CustomerID, Account acct, final EnumAccountType acctType) {
         final String accountHash = null;
         client.ACCOUNT.createAccount(CustomerID, acct, new NessieResultsListener() {
             @Override
@@ -91,12 +91,12 @@ public class Communications {
                 Account acct = accts.getObjectCreated();
                 Accounts.addAccount(
                         Hashing.SHA1(acct.getAccountNumber()),
-                        acct);
+                        acct, acctType);
             }
 
             @Override
             public void onFailure(NessieError error) {
-
+                Toast.makeText(MainActivity.ctx, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
         return accountHash;
@@ -118,6 +118,23 @@ public class Communications {
         });
         return "";
     }
+
+    public static List<Deposit> getTransactionsForAccount(String accountID) {
+        final ArrayList<List<Deposit>> deps = new ArrayList<List<Deposit>>();
+        client.DEPOSIT.getDeposits(accountID, new NessieResultsListener() {
+            @Override
+            public void onSuccess(Object result) {
+                deps.add((List<Deposit>) result);
+            }
+
+            @Override
+            public void onFailure(NessieError error) {
+                Toast.makeText(MainActivity.ctx, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        return deps.get(0);
+    }
+
 
     public static String sendNessieDepositCall(double originalAmt, String account_ID) {
         String desc = "";

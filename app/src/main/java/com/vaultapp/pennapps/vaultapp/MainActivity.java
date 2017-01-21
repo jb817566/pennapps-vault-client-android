@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void SendDeposit(View v) {
+        EnumAccountType acctType = null;
+        String nickname = null;
 //        Communications.sendNessieDepositCall(19.95d);
 //        Customer customer = new Customer.Builder().firstName("Spongebob")
 //                .lastName("Squarepants").address(new Address.Builder()
@@ -44,10 +46,10 @@ public class MainActivity extends AppCompatActivity {
                 new Account.Builder()
                         .balance(0)
                         .type(AccountType.SAVINGS)
-                        .nickname("NICKNAME")
+                        .nickname(nickname)
                         .rewards(0)
                         .accountNumber(acctNum)
-                        .build());
+                        .build(), acctType);
     }
 
     private String RandomString(int n) {
