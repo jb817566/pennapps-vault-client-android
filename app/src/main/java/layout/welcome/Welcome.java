@@ -12,7 +12,6 @@ import android.view.View;
 import com.reimaginebanking.api.nessieandroidsdk.models.Address;
 import com.reimaginebanking.api.nessieandroidsdk.models.Customer;
 import com.vaultapp.pennapps.vaultapp.Communications;
-import com.vaultapp.pennapps.vaultapp.CreateCustomer;
 import com.vaultapp.pennapps.vaultapp.CustomerCreate;
 import com.vaultapp.pennapps.vaultapp.R;
 
