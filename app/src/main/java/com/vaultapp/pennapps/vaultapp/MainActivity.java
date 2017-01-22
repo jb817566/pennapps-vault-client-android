@@ -20,6 +20,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Scope;
+import com.vaultapp.pennapps.vaultapp.googlecomm.PurchaseProvider;
 
 import java.security.SecureRandom;
 import java.util.Set;
@@ -33,14 +34,21 @@ public class MainActivity extends AppCompatActivity {
     private static SecureRandom rand = new SecureRandom();
     private static GoogleApiClient mGoogleApiClient = null;
     private final int RC_SIGN_IN = 9001;
+    private PurchaseProvider billingProvider = null;
     private GoogleSignInResult signin_rslt = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MainActivity.ctx = MainActivity.this;
+
+        final Intent billingIntent = new Intent(MainActivity.this, com.android.vending.billing.IInAppBillingService.class);
+        bindService(billingIntent, (billingProvider = new PurchaseProvider()).getConn(), Context.BIND_AUTO_CREATE);
+
         final SignInButton signInButton = (SignInButton) findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
+
         findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,10 +99,20 @@ public class MainActivity extends AppCompatActivity {
                         }.execute();
                         break;
                     // ...
+
                 }
+//                Bundle skusBundle = new Bundle();
+//                skusBundle.putStringArrayList("ITEM_ID_LIST", new ArrayList<String>());
+//                try {
+//                    Bundle response = billingProvider.getService().getSkuDetails(3, "com.king.candycrushsaga", "inapp", skusBundle);
+//                    Log.d(TAG, Arrays.toString(response.getStringArrayList(null).toArray()));
+//                } catch (RemoteException e) {
+//                    Log.d(TAG, e.toString());
+//                }
             }
         });
-        MainActivity.ctx = MainActivity.this;
+
+
         appDataDir = MainActivity.ctx.getFilesDir().getAbsolutePath();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestScopes(new Scope(Scopes.PLUS_LOGIN))
@@ -107,6 +125,13 @@ public class MainActivity extends AppCompatActivity {
                 .build();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (billingProvider != null) {
+            unbindService(billingProvider.getConn());
+        }
+    }
 
     protected void SendDeposit(View v) {
         EnumAccountType acctType = null;
