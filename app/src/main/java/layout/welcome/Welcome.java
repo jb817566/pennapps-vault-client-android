@@ -12,7 +12,8 @@ import android.view.View;
 import com.reimaginebanking.api.nessieandroidsdk.models.Address;
 import com.reimaginebanking.api.nessieandroidsdk.models.Customer;
 import com.vaultapp.pennapps.vaultapp.Communications;
-import com.vaultapp.pennapps.vaultapp.MainActivity;
+import com.vaultapp.pennapps.vaultapp.CreateCustomer;
+import com.vaultapp.pennapps.vaultapp.CustomerCreate;
 import com.vaultapp.pennapps.vaultapp.R;
 
 import java.util.Random;
@@ -41,6 +42,20 @@ public class Welcome extends AppCompatActivity {
      */
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
+    /**
+     * Touch listener to use for in-layout UI controls to delay hiding the
+     * system UI. This is to prevent the jarring behavior of controls going away
+     * while interacting with activity UI.
+     */
+    private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            if (AUTO_HIDE) {
+                delayedHide(AUTO_HIDE_DELAY_MILLIS);
+            }
+            return false;
+        }
+    };
     private View mContentView;
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
@@ -78,28 +93,14 @@ public class Welcome extends AppCompatActivity {
             hide();
         }
     };
-    /**
-     * Touch listener to use for in-layout UI controls to delay hiding the
-     * system UI. This is to prevent the jarring behavior of controls going away
-     * while interacting with activity UI.
-     */
-    private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (AUTO_HIDE) {
-                delayedHide(AUTO_HIDE_DELAY_MILLIS);
-            }
-            return false;
-        }
-    };
 
-    public void AddCustomerFromForm(View v){
+    public void AddCustomerFromForm(View v) {
 
     }
 
     private void createCustomer() {
         //Get Customer form Textview values
-         Customer customer = new Customer.Builder().firstName("Spongebob")
+        Customer customer = new Customer.Builder().firstName("Spongebob")
                 .lastName("Squarepants").address(new Address.Builder()
                         .city("46")
                         .state("PA")
@@ -136,10 +137,10 @@ public class Welcome extends AppCompatActivity {
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
     }
 
-    public void lauchMain(View v){
+    public void lauchMain(View v) {
 
-        Intent homeIntent = new Intent(Welcome.this, MainActivity.class);
-        startActivity(homeIntent);
+        Intent createCustIntent = new Intent(Welcome.this, CustomerCreate.class);
+        startActivity(createCustIntent);
         finish();
     }
 

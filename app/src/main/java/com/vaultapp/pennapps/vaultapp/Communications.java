@@ -65,7 +65,7 @@ public class Communications {
             public void onSuccess(Object result) {
                 List<Account> accts = (List<Account>) result;
                 for (Account acct : accts) {
-                    String hashedAcctID = Hashing.SHA1(acct.getAccountNumber());
+                    String hashedAcctID = Hashing.SHA1(acct.getId());
                     EnumAccountType type = null;
                     if ((type = Accounts.containsAccount(hashedAcctID)) != EnumAccountType.NONE) {
                         Accounts.addAccount(hashedAcctID + "_" + type.toString(), acct, type);
@@ -82,6 +82,21 @@ public class Communications {
         return accountHashes;
     }
 
+    public static void DeleteAccount(final String acctID, final EnumAccountType type) {
+        client.ACCOUNT.deleteAccount(acctID, new NessieResultsListener() {
+            @Override
+            public void onSuccess(Object result) {
+                PostResponse<Account> accts = (PostResponse<Account>) result;
+                Accounts.deleteAccount(acctID, type);
+            }
+
+            @Override
+            public void onFailure(NessieError error) {
+                Toast.makeText(MainActivity.ctx, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     public static String createNessieAccountForCustomer(String CustomerID, Account acct, final EnumAccountType acctType) {
         final String accountHash = null;
         client.ACCOUNT.createAccount(CustomerID, acct, new NessieResultsListener() {
@@ -90,7 +105,7 @@ public class Communications {
                 PostResponse<Account> accts = (PostResponse<Account>) result;
                 Account acct = accts.getObjectCreated();
                 Accounts.addAccount(
-                        Hashing.SHA1(acct.getAccountNumber()),
+                        Hashing.SHA1(acct.getId()),
                         acct, acctType);
             }
 
