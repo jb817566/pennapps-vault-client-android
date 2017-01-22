@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+import android.widget.EditText;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -69,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
     protected void SendDeposit(View v) {
         EnumAccountType acctType = null;
         String nickname = null;
-//        Communications.sendNessieDepositCall(19.95d);
 //        Customer customer = new Customer.Builder().firstName("Spongebob")
 //                .lastName("Squarepants").address(new Address.Builder()
 //                        .city("46")
@@ -91,6 +91,11 @@ public class MainActivity extends AppCompatActivity {
 //                        .rewards(0)
 //                        .accountNumber(acctNum)
 //                        .build(), acctType);
+        EditText text = (EditText) findViewById(R.id.amountEntry);
+        double amount = Double.parseDouble(text.getText().toString());
+     //   Communications.sendNessieDepositCall(amount, );
+
+
     }
 
     private String RandomString(int n) {

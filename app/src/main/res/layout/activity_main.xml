@@ -10,21 +10,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="#82d7f1"
     tools:context="com.vaultapp.pennapps.vaultapp.MainActivity">
-<!---
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
--->
-    <TextView
+    />
+
+<!--    <TextView
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
+        android:textColor="#ECFBFF"
+        android:textSize="30sp"
+        android:textStyle="bold"
         android:id="@+id/textView"
         android:onClick="SendNessus" />
-
+-->
     <Button
         android:text="Enter Amount"
         android:layout_width="wrap_content"
@@ -70,4 +69,14 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="83dp"
         android:id="@+id/textView2" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/amountEntry"
+        android:layout_above="@+id/button"
+        android:layout_alignStart="@+id/button"
+        android:layout_marginBottom="17dp" />
 </RelativeLayout>

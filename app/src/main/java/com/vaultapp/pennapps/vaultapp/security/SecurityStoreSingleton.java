@@ -1,7 +1,6 @@
 package com.vaultapp.pennapps.vaultapp.security;
 
 import android.security.KeyPairGeneratorSpec;
-import android.security.keystore.KeyProperties;
 import android.util.Log;
 
 import com.vaultapp.pennapps.vaultapp.MainActivity;
@@ -72,7 +71,7 @@ public class SecurityStoreSingleton {
                 notAfter.add(Calendar.YEAR, 1);
                 KeyPairGeneratorSpec spec = new KeyPairGeneratorSpec.Builder(MainActivity.ctx)
                         .setAlias(alias)
-                        .setKeyType(KeyProperties.KEY_ALGORITHM_RSA)
+                        .setKeyType("RSA")
                         .setKeySize(1024)
                         .setSubject(new X500Principal("CN=AndroidPKI"))
                         .setSerialNumber(BigInteger.ONE)
