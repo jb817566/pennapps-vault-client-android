@@ -134,15 +134,13 @@ public class Welcome extends AppCompatActivity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+    }
 
-        new Handler().postDelayed(new Runnable(){
-            @Override
-            public void run(){
-                Intent homeIntent = new Intent(Welcome.this, MainActivity.class);
-                startActivity(homeIntent);
-                finish();
-            }
-        }, getResources().getInteger(R.integer.SPLASH_TIME_MILLIS));
+    public void lauchMain(View v){
+
+        Intent homeIntent = new Intent(Welcome.this, MainActivity.class);
+        startActivity(homeIntent);
+        finish();
     }
 
     @Override

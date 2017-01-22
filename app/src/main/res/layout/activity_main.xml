@@ -10,21 +10,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="#82d7f1"
     tools:context="com.vaultapp.pennapps.vaultapp.MainActivity">
-<!---
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
--->
-    <TextView
+    />
+
+<!--    <TextView
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
+        android:textColor="#ECFBFF"
+        android:textSize="30sp"
+        android:textStyle="bold"
         android:id="@+id/textView"
         android:onClick="SendNessus" />
-
+-->
     <Button
         android:text="Enter Amount"
         android:layout_width="wrap_content"
@@ -39,4 +38,30 @@
         android:onClick="SendDeposit"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Input the amount of money for your transactions and Vaultapp will calculate the an appropriate amount of money to donate!"
+        android:layout_below="@+id/button"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:textColor="#ECFBFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center" />
+
+    <TextView
+        android:gravity="center"
+        android:keepScreenOn="true"
+        android:text="Vaultapp"
+        android:textColor="#ECFBFF"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="83dp"
+        android:id="@+id/textView2" />
 </RelativeLayout>

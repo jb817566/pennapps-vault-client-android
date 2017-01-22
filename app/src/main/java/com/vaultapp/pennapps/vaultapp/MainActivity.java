@@ -43,17 +43,17 @@ public class MainActivity extends AppCompatActivity {
 //                        .build()).
 //                        build();
 //        Communications.createNessieCustomer(customer);
-        String d = SecurityStoreSingleton.getInstance().Retreive();
-        //Communications.getAllAccountsForCustomer(d);
-        String acctNum = (System.currentTimeMillis() + "").substring(0, 13) + RandomString(3);
-        Communications.createNessieAccountForCustomer(d,
-                new Account.Builder()
-                        .balance(0)
-                        .type(AccountType.SAVINGS)
-                        .nickname(nickname)
-                        .rewards(0)
-                        .accountNumber(acctNum)
-                        .build(), acctType);
+//        String d = SecurityStoreSingleton.getInstance().Retreive();
+//        //Communications.getAllAccountsForCustomer(d);
+//        String acctNum = (System.currentTimeMillis() + "").substring(0, 13) + RandomString(3);
+//        Communications.createNessieAccountForCustomer(d,
+//                new Account.Builder()
+//                        .balance(0)
+//                        .type(AccountType.SAVINGS)
+//                        .nickname(nickname)
+//                        .rewards(0)
+//                        .accountNumber(acctNum)
+//                        .build(), acctType);
     }
 
     private String RandomString(int n) {
