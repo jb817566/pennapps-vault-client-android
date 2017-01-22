@@ -2,12 +2,14 @@ package com.vaultapp.pennapps.vaultapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -15,10 +17,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.OptionalPendingResult;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Scope;
-import com.reimaginebanking.api.nessieandroidsdk.constants.AccountType;
-import com.reimaginebanking.api.nessieandroidsdk.models.Account;
-import com.vaultapp.pennapps.vaultapp.security.SecurityStoreSingleton;
 
 import java.security.SecureRandom;
 import java.util.Set;
@@ -32,22 +33,62 @@ public class MainActivity extends AppCompatActivity {
     private static SecureRandom rand = new SecureRandom();
     private static GoogleApiClient mGoogleApiClient = null;
     private final int RC_SIGN_IN = 9001;
+    private GoogleSignInResult signin_rslt = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SignInButton signInButton = (SignInButton) findViewById(R.id.sign_in_button);
+        final SignInButton signInButton = (SignInButton) findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
         findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.sign_in_button:
-                        if (!mGoogleApiClient.isConnected()) {
-                            mGoogleApiClient.connect();
+
+                        final OptionalPendingResult<GoogleSignInResult> pendingResult =
+                                Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
+                        if (pendingResult.isDone()) {
+                            // There's immediate result available.
+                            Toast.makeText(MainActivity.ctx, (signin_rslt = pendingResult.get()).getStatus() + "", Toast.LENGTH_SHORT).show();
+                        } else {
+                            pendingResult.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+                                @Override
+                                public void onResult(@NonNull GoogleSignInResult result) {
+                                    signin_rslt = result;
+                                    Toast.makeText(MainActivity.ctx, result.getStatus() + "", Toast.LENGTH_LONG).show();
+                                }
+                            });
                         }
-                        signIn();
+
+
+                        new AsyncTask<Void, Void, Void>() {
+
+                            @Override
+                            protected Void doInBackground(Void... params) {
+
+                                try {
+                                    while (!pendingResult.isDone()) {
+                                        try {
+                                            Thread.sleep(200);
+                                        } catch (InterruptedException e) {
+                                        }
+                                        if (signin_rslt != null && signin_rslt.getStatus().isSuccess()) {
+                                            Log.d(TAG, "Logged in quietly");
+                                            return null;
+                                        }
+                                    }
+                                    if (!mGoogleApiClient.isConnected()) {
+                                        mGoogleApiClient.connect();
+                                    }
+                                    signIn();
+                                } catch (Exception e) {
+                                    Log.d(TAG, e.toString());
+                                }
+                                return null;
+                            }
+                        }.execute();
                         break;
                     // ...
                 }
@@ -93,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
 //                        .build(), acctType);
         EditText text = (EditText) findViewById(R.id.amountEntry);
         double amount = Double.parseDouble(text.getText().toString());
-     //   Communications.sendNessieDepositCall(amount, );
+        //   Communications.sendNessieDepositCall(amount, );
 
 
     }
@@ -122,16 +163,20 @@ public class MainActivity extends AppCompatActivity {
         Set<String> datas = data.getExtras().keySet();
         String ext = data.getStringExtra("googleSignInStatus");
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        Toast.makeText(MainActivity.ctx, "before", Toast.LENGTH_SHORT).show();
         GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-        Toast.makeText(MainActivity.ctx, "after", Toast.LENGTH_SHORT).show();
         if (requestCode == RC_SIGN_IN) {
             result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            if (result.isSuccess()) {
-                Toast.makeText(MainActivity.ctx, "Successfully signed in w/ Google", Toast.LENGTH_SHORT).show();
-            } else {
-                //Toast.makeText(MainActivity.ctx, result.getStatus().getStatusCode(), Toast.LENGTH_SHORT).show();
-            }
+//            Log.d(TAG, "asdfsaf");
+//            Log.d(TAG, result.getSignInAccount().toString());
+
+//            Log.d(TAG, result.getSignInAccount().getIdToken());
+//            if (result.isSuccess()) {
+//                Toast.makeText(MainActivity.ctx, "Successfully signed in w/ Google", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.ctx, result.getSignInAccount().getDisplayName(), Toast.LENGTH_LONG).show();
+//
+//            } else {
+//                //Toast.makeText(MainActivity.ctx, result.getStatus().getStatusCode(), Toast.LENGTH_SHORT).show();
+//            }
         }
     }
 

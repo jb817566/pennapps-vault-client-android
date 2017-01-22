@@ -1,8 +1,12 @@
 package com.vaultapp.pennapps.vaultapp;
 
+import android.util.Log;
+
 import com.reimaginebanking.api.nessieandroidsdk.models.Deposit;
 
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by hhbhagat on 1/21/2017.
