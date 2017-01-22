@@ -28,7 +28,7 @@
         android:text="Enter Amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="13dp"
+        android:padding="8dp"
         android:id="@+id/button"
         android:gravity="center"
         android:background="#37ADCE"
@@ -76,7 +76,7 @@
         android:inputType="numberDecimal"
         android:ems="10"
         android:id="@+id/amountEntry"
+        android:layout_marginBottom="19dp"
         android:layout_above="@+id/button"
-        android:layout_alignStart="@+id/button"
-        android:layout_marginBottom="17dp" />
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
