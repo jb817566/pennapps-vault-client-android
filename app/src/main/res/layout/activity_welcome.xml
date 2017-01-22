@@ -45,8 +45,7 @@
                 android:background="#37ADCE"
                 android:textColor="#ECFBFF"
                 android:text="Get started!"
-                android:onClick=""/>
-
+                android:onClick="lauchMain" />
         </LinearLayout>
     </FrameLayout>
 
