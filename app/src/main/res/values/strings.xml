@@ -5,6 +5,8 @@
     <integer name="SPLASH_TIME_MILLIS">4000</integer>
     <string name="AccountCreated">Welcome to Vault!</string>
     <string name="ButtonAPPID">app-10714a00c19ea3f8</string>
+    <string name="gclientID">375797418770-i80vl0qmk102dudb3814us0m1veu93r0.apps.googleusercontent.com</string>
+    <string name="glclientidweb">375797418770-8l9j7e3hcj1429j1nvcrcqejh5jsc1uq.apps.googleusercontent.com</string>
     <string name="title_activity_welcome">Welcome</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>

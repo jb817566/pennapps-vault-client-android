@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "375797418770",
+    "project_id": "vaultapp-f0ae8"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:375797418770:android:73ccddb280172ef3",
+        "android_client_info": {
+          "package_name": "com.vaultapp.pennapps.vaultapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "375797418770-i80vl0qmk102dudb3814us0m1veu93r0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vaultapp.pennapps.vaultapp",
+            "certificate_hash": "BBF34C2D5B49E8C3AE1E8624D0DEC247A1BC63E6"
+          }
+        },
+        {
+          "client_id": "375797418770-8l9j7e3hcj1429j1nvcrcqejh5jsc1uq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9E-9yYMzfTpviB9nX6N--kfp-r97dHjs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
